@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Google tag (gtag.js) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-ZQS5L0793H"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-ZQS5L0793H");
+    </script>
+    <title>Email CO2 Calculation</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #222;
+        color: #fff;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+
+      .container {
+        flex: 1;
+        max-width: 600px;
+        margin: 0 auto;
+        text-align: center;
+        padding: 20px;
+        border-radius: 10px;
+        background-color: #333;
+        margin-top: 50px;
+      }
+
+      input[type="number"] {
+        margin: 10px;
+        padding: 10px;
+        font-size: 18px;
+        border-radius: 5px;
+        border: none;
+      }
+
+      #result {
+        font-size: 24px;
+        color: #fff;
+      }
+
+      #trees,
+      #cost {
+        color: #bbb;
+        margin-top: 20px;
+      }
+
+      footer {
+        background-color: #222;
+        text-align: center;
+        padding: 20px;
+        margin-top: auto;
+      }
+
+      footer img {
+        max-width: 200px;
+      }
+
+      footer p {
+        margin: 10px 0 0;
+        color: #bbb;
+      }
+
+      footer a {
+        color: #fff;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Email CO2 Calculation</h2>
+      <input
+        type="number"
+        id="numEmails"
+        placeholder="Number of Emails"
+        required
+      />
+      <input
+        type="number"
+        id="sizePerMail"
+        placeholder="Size per Mail in KB"
+        required
+      />
+      <input
+        type="number"
+        id="gridFactor"
+        placeholder="Grid Factor"
+        value="349"
+        required
+      />
+      <p id="result">Total emissions: 0 kg CO2e</p>
+      <p id="trees">Number of trees to offset in one year: 0</p>
+      <p id="cost">Cost to offset with carbon certificates: 0 Euro</p>
+    </div>
+    <footer>
+      <a
+        href="https://www.thegreenwebfoundation.org/green-web-check/?url=digital-in-charge.com"
+        target="_blank"
+      >
+        <img
+          src="https://api.thegreenwebfoundation.org/greencheckimage/digital-in-charge.com?nocache=true"
+          alt="This website is hosted Green - checked by thegreenwebfoundation.org"
+          style="max-width: 400px"
+        />
+      </a>
+      <p>
+        &copy; 2023 Yelle Lieder. All rights reserved. |
+        <a href="https://github.com/yellelieder" target="_blank">GitHub</a> |
+        <a href="https://www.linkedin.com/in/lieder/" target="_blank"
+          >LinkedIn</a
+        >
+      </p>
+    </footer>
+    <script>
+      let numEmails = document.getElementById("numEmails");
+      let sizePerMail = document.getElementById("sizePerMail");
+      let gridFactor = document.getElementById("gridFactor");
+      let result = document.getElementById("result");
+      let trees = document.getElementById("trees");
+      let cost = document.getElementById("cost");
+
+      function calculateResult() {
+        let sumInGB =
+          (Number(numEmails.value) * Number(sizePerMail.value)) /
+          (0.76 * 1024 * 1024);
+        let finalResult = (sumInGB * 0.5 * Number(gridFactor.value)) / 1000;
+        let treesNeeded = finalResult / 25;
+        let costToOffset = finalResult * 0.055;
+
+        result.textContent =
+          "Total emissions: " + finalResult.toFixed(5) + " kg CO2e";
+        trees.textContent =
+          "Number of trees to offset in one year: " + treesNeeded.toFixed(5);
+        cost.textContent =
+          "Cost to offset with carbon certificates: " +
+          costToOffset.toFixed(2) +
+          " Euro";
+      }
+
+      numEmails.addEventListener("input", calculateResult);
+      sizePerMail.addEventListener("input", calculateResult);
+      gridFactor.addEventListener("input", calculateResult);
+      calculateResult();
+    </script>
+  </body>
+</html>
