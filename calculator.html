@@ -28,8 +28,12 @@
         flex-direction: column;
         min-height: 100vh;
       }
+      a:visited {
+        color: inherit;
+      }
 
       .container {
+        text-align: center;
         flex: 1;
         max-width: 600px;
         margin: 0 auto;
@@ -40,7 +44,7 @@
         margin-top: 50px;
         display: flex;
         flex-direction: column;
-        align-items: flex-start;
+        align-items: flex-end;
       }
 
       input[type="number"] {
@@ -49,6 +53,42 @@
         font-size: 18px;
         border-radius: 5px;
         border: none;
+      }
+
+      .tooltip {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+      }
+
+      .tooltip-text {
+        visibility: hidden;
+        width: 200px;
+        background-color: #666;
+        color: #fff;
+        text-align: center;
+        border-radius: 5px;
+        padding: 5px;
+        position: absolute;
+        z-index: 1;
+        bottom: 125%;
+        left: 50%;
+        transform: translateX(-50%);
+        opacity: 0;
+        transition: opacity 0.3s;
+        pointer-events: none; /* Added this line to disable pointer events */
+      }
+
+      .tooltip:hover .tooltip-text {
+        visibility: visible;
+        opacity: 1;
+        pointer-events: auto; /* Added this line to re-enable pointer events on hover */
+      }
+
+      .tooltip-icon {
+        margin-left: 5px;
+        color: #bbb;
+        cursor: pointer;
       }
 
       #result {
@@ -87,34 +127,95 @@
   <body>
     <div class="container">
       <h2>Email CO2 Calculation</h2>
-      Number of Emails:
-      <input
-        type="number"
-        id="numEmails"
-        placeholder="Number of Emails"
-        required
-      />
+      <div class="tooltip">
+        Number of Emails:
+        <div class="tooltip-text" id="tooltip-1">
+          Average office worker sent and received approximately 8.400 emails per
+          year.
+          <a
+            href="https://prosperitymedia.com.au/how-many-emails-are-sent-per-day-in-2023/"
+            target="_blank"
+            >[FNorquay 2023]</a
+          >
+        </div>
+        <input
+          type="number"
+          id="numEmails"
+          placeholder="Number of Emails"
+          value="8400"
+          required
+        />
+      </div>
       <br />
+      <div class="tooltip">
+        Size per Mail in KB:
+        <div class="tooltip-text" id="tooltip-2">
+          Average size of an email: 75 KB.
+          <a
+            href="https://www.lifewire.com/what-is-the-average-size-of-an-email-message-1171208"
+            target="_blank"
+            >[Tschabitscher 2021]</a
+          >
+        </div>
+        <input
+          type="number"
+          id="sizePerMail"
+          placeholder="Size per Mail"
+          value="75"
+          required
+        />
+      </div>
+      <br />
+      <div class="tooltip">
+        Carbon Intensity:
+        <div class="tooltip-text" id="tooltip-3">
+          Average grid factor gCO2e/kWh in Germany: 349g.
+          <a
+            href="https://www.statista.com/statistics/1290224/carbon-intensity-power-sector-germany/"
+            target="_blank"
+            >[Statista 2022]</a
+          >
+        </div>
+        <input
+          type="number"
+          id="gridFactor"
+          placeholder="Grid Factor"
+          value="349"
+          required
+        />
+      </div>
+      <div class="tooltip">
+        <div class="tooltip-text" id="tooltip-4">
+          Assuming 0,5 kWh per GB data transmission.
+          <a href="https://www.mdpi.com/2071-1050/10/7/2494" target="_blank"
+            >[Pihkola et al. 2018]</a
+          >
+        </div>
+        <p id="result">Total emissions: 0 kg CO2e</p>
+      </div>
 
-      Size per Mail:
-      <input
-        type="number"
-        id="sizePerMail"
-        placeholder="Size per Mail in KB"
-        required
-      />
-      <br />
-      Grid Factor (gCO2e/kWh):
-      <input
-        type="number"
-        id="gridFactor"
-        placeholder="Grid Factor"
-        value="349"
-        required
-      />
-      <p id="result">Total emissions: 0 kg CO2e</p>
-      <p id="trees">Number of trees to offset in one year: 0</p>
-      <p id="cost">Cost to offset with carbon certificates: 0 Euro</p>
+      <div class="tooltip">
+        <div class="tooltip-text" id="tooltip-4">
+          Assuming 25kg CO2e absorption per tree per year.
+          <a
+            href="https://www.usda.gov/media/blog/2015/03/17/power-one-tree-very-air-we-breathe"
+            target="_blank"
+            >[U.S. Department of Argriculture 2015]</a
+          >
+        </div>
+        <p id="trees">Number of trees to offset in one year: 0</p>
+      </div>
+      <div class="tooltip">
+        <div class="tooltip-text" id="tooltip-4">
+          Assuming 89 Euro per tonne CO2e.
+          <a
+            href="https://ember-climate.org/data/data-tools/carbon-price-viewer/"
+            target="_blank"
+            >[Ember Climate 2023]</a
+          >
+        </div>
+        <p id="cost">Cost to offset with carbon certificates: 0 Euro</p>
+      </div>
     </div>
     <footer>
       <a
@@ -149,7 +250,7 @@
           (0.76 * 1024 * 1024);
         let finalResult = (sumInGB * 0.5 * Number(gridFactor.value)) / 1000;
         let treesNeeded = finalResult / 25;
-        let costToOffset = finalResult * 0.055;
+        let costToOffset = finalResult * 0.089;
 
         result.textContent =
           "Total emissions: " + finalResult.toFixed(5) + " kg CO2e";
