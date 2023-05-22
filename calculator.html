@@ -38,6 +38,9 @@
         border-radius: 10px;
         background-color: #333;
         margin-top: 50px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
       }
 
       input[type="number"] {
@@ -84,18 +87,24 @@
   <body>
     <div class="container">
       <h2>Email CO2 Calculation</h2>
+      Number of Emails:
       <input
         type="number"
         id="numEmails"
         placeholder="Number of Emails"
         required
       />
+      <br />
+
+      Size per Mail:
       <input
         type="number"
         id="sizePerMail"
         placeholder="Size per Mail in KB"
         required
       />
+      <br />
+      Grid Factor (gCO2e/kWh):
       <input
         type="number"
         id="gridFactor"
