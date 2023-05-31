@@ -301,8 +301,29 @@
         let treesNeeded = finalResult / 25;
         let costToOffset = finalResult * 0.089;
 
+        let resultUnit = "kg";
+        let treesUnit = "trees";
+        let costUnit = "Euro";
+
+        if (finalResult < 1) {
+          finalResult *= 1000; // Convert to grams
+          resultUnit = "g";
+        } else if (finalResult >= 1000) {
+          finalResult /= 1000; // Convert to metric tonnes
+          resultUnit = "t";
+        }
+
+        if (treesNeeded >= 1000) {
+          treesNeeded /= 1000; // Convert to thousands of trees
+          treesUnit = "thousand trees";
+        }
+
         result.textContent =
-          "Total emissions: " + finalResult.toFixed(5) + " kg CO2e";
+          "Total emissions: " +
+          finalResult.toFixed(2) +
+          " " +
+          resultUnit +
+          " CO2e";
         trees.textContent =
           "Number of trees to offset in one year: " + treesNeeded.toFixed(5);
         cost.textContent =
