@@ -100,7 +100,9 @@
       }
 
       #trees,
-      #cost {
+      #energy-consumption,
+      #data-transmission,
+       #cost {
         color: #bbb;
         margin-top: 20px;
       }
@@ -243,6 +245,27 @@
       </div>
 
       <div class="tooltip">
+        <div class="tooltip-text" id="tooltip-9">
+          Multiplied Units with data volume per unit.
+        </div>
+        <p id="data-transmission" style="white-space: nowrap">
+          Data transmission: 0 GB
+        </p>
+      </div>
+
+      <div class="tooltip">
+        <div class="tooltip-text" id="tooltip-6">
+          Assuming 0.5 kWh per GB data transmission.
+          <a href="https://www.mdpi.com/2071-1050/10/7/2494" target="_blank"
+            >[Pihkola et al. 2018]</a
+          >
+        </div>
+        <p id="energy-consumption" style="white-space: nowrap">
+          Energy consumption: 0 kWh
+        </p>
+      </div>
+
+      <div class="tooltip">
         <div class="tooltip-text" id="tooltip-7">
           Assuming 25 kg CO2e absorption per tree per year.
           <a
@@ -251,8 +274,9 @@
             >[U.S. Department of Agriculture 2015]</a
           >
         </div>
-        <p id="trees">Number of trees to offset in one year: 0.00552</p>
+        <p id="trees">Number of trees to offset in one year: 0</p>
       </div>
+
       <div class="tooltip">
         <div class="tooltip-text" id="tooltip-8">
           Assuming 89 Euro per tonne CO2e.
@@ -262,7 +286,7 @@
             >[Ember Climate 2023]</a
           >
         </div>
-        <p id="cost">Cost to offset with carbon certificates: 0.01 Euro</p>
+        <p id="cost">Cost to offset with carbon certificates: 0 Euro</p>
       </div>
     </div>
     <footer>
@@ -291,12 +315,17 @@
       let sizeGB = document.getElementById("sizeGB");
       let gridFactor = document.getElementById("gridFactor");
       let result = document.getElementById("result");
+      let dataTransmission = document.getElementById("data-transmission");
+      let energyConsumption = document.getElementById("energy-consumption");
       let trees = document.getElementById("trees");
       let cost = document.getElementById("cost");
 
       function calculateResult() {
         let sumInGB =
-          Number(numEmails.value) * convertToGB(Number(sizeKB.value)); // Corrected conversion factor
+          Number(numEmails.value) * convertToGB(Number(sizeKB.value));
+        let dataTransmissionValue = sumInGB.toFixed(3);
+        let energyConsumptionValue = (sumInGB * 0.5).toFixed(2);
+
         let finalResult = (sumInGB * 0.5 * Number(gridFactor.value)) / 1000;
         let treesNeeded = finalResult / 25;
         let costToOffset = finalResult * 0.089;
@@ -306,15 +335,15 @@
         let costUnit = "Euro";
 
         if (finalResult < 1) {
-          finalResult *= 1000; // Convert to grams
+          finalResult *= 1000;
           resultUnit = "g";
         } else if (finalResult >= 1000) {
-          finalResult /= 1000; // Convert to metric tonnes
+          finalResult /= 1000;
           resultUnit = "t";
         }
 
         if (treesNeeded >= 1000) {
-          treesNeeded /= 1000; // Convert to thousands of trees
+          treesNeeded /= 1000;
           treesUnit = "thousand trees";
         }
 
@@ -324,6 +353,10 @@
           " " +
           resultUnit +
           " CO2e";
+        dataTransmission.textContent =
+          "Data transmission: " + dataTransmissionValue + " GB";
+        energyConsumption.textContent =
+          "Energy consumption: " + energyConsumptionValue + " kWh";
         trees.textContent =
           "Number of trees to offset in one year: " + treesNeeded.toFixed(5);
         cost.textContent =
