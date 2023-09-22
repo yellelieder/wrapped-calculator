@@ -1,0 +1,133 @@
+html,
+body {
+  color: white;
+  font-family: helvetica, arial, sans-serif;
+  font-size: 14px;
+  line-height: 1;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  margin: 0 auto;
+}
+
+.footer {
+  text-align: center;
+  margin: 0 auto;
+}
+
+.logo {
+  display: block;
+}
+
+a:hover,
+a:active {
+  color: #64b96b;
+}
+
+img {
+  height: auto;
+  max-width: 100%;
+}
+
+.logo img {
+  width: 500px;
+}
+
+code.image {
+  background-color: lightyellow;
+}
+
+@media all and (max-width: 768px) {
+  #scale-container {
+    width: 90%;
+  }
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #222;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+a {
+  color: #fff;
+}
+
+.container {
+  text-align: center;
+  flex: 1;
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #333;
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+input[type="number"] {
+  margin: 10px;
+  padding: 10px;
+  font-size: 18px;
+  border-radius: 5px;
+  border: none;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.tooltip-text {
+  visibility: hidden;
+  width: 200px;
+  background-color: #666;
+  color: #fff;
+  text-align: center;
+  border-radius: 5px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+
+.tooltip:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.tooltip-icon {
+  margin-left: 5px;
+  color: #bbb;
+  cursor: pointer;
+}
+
+#result {
+  font-size: 24px;
+  color: #fff;
+}
+
+#trees,
+#energy-consumption,
+#data-transmission,
+#damage,
+#disclaimer,
+#cost {
+  color: #bbb;
+  margin-top: 1px;
+}

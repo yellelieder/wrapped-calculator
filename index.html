@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>Datacarbon</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="./apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="./favicon-16x16.png"
+    />
+    <link rel="canonical" href="https://datacarbon.info/index.html" />
+    <link rel="manifest" href="./manifest.json" />
+    <link rel="mask-icon" href="./safari-pinned-tab.svg" color="#000000" />
+    <link rel="shortcut icon" href="./favicon.ico" />
+    <meta name="msapplication-TileColor" content="#000000" />
+    <meta name="msapplication-TileImage" content="./mstile-144x144.png" />
+    <meta name="msapplication-config" content="./browserconfig.xml" />
+    <meta name="theme-color" content="#000000" />
+
+    <meta name="description" content="Energy CO2 data" />
+    <meta name="robots" content="noodp" />
+    <meta name="author" content="Yelle LIeder" />
+    <meta
+      name="keywords"
+      content="energy, co2, carbon, footprint, climate, change, global, warming, electricity, map, api, real, time, realtime, data, information, app, pwa, progressive, web, application, webapp, webapplication, web-app, web-applicat"
+    />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="datacarbon" />
+    <meta property="og:description" content="Energy CO2 data" />
+    <meta property="og:url" content="https://datacarbon.info" />
+    <meta property="og:site_name" content="datacarbon" />
+    <meta
+      property="section:publisher"
+      content="https://www.facebook.com/datacarbon/"
+    />
+    <meta property="og:image" content="https://datacarbon.info/share.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="datacarbon" />
+    <meta name="twitter:description" content="Energy CO2 data" />
+    <meta name="twitter:site" content="@datacarbon" />
+    <meta name="twitter:image" content="https://datacarbon.info#/share.jpg" />
+    <meta name="twitter:creator" content="@datacarbon" />
+    <link rel="stylesheet" href="style.css" />
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker &&
+            navigator.serviceWorker.register("./sw.js");
+        });
+
+        let deferredPrompt;
+        window.addEventListener("beforeinstallprompt", (e) => {
+          e.preventDefault();
+          deferredPrompt = e;
+          setTimeout(showInstallPrompt, 5000);
+        });
+
+        function showInstallPrompt() {
+          if (deferredPrompt) {
+            if (confirm("Do you want to install this app?")) {
+              deferredPrompt.prompt();
+              deferredPrompt.userChoice.then((choiceResult) => {
+                if (choiceResult.outcome === "accepted") {
+                  console.log("App installed");
+                } else {
+                  console.log("App installation declined");
+                }
+                deferredPrompt = null;
+              });
+            }
+          }
+        }
+      }
+    </script>
+    <script defer src="./main.js"></script>
+  </head>
+
+  <body>
+    <div class="container">
+      <h2>Data CO2 Estimator</h2>
+      <div class="tooltip">
+        <label for="numEmails">Units:</label>
+        <div class="tooltip-text" id="tooltip-1">
+          Average office worker sends approximately 8,400 emails per year.
+          <a
+            href="https://prosperitymedia.com.au/how-many-emails-are-sent-per-day-in-2023/"
+            target="_blank"
+            >[Norquay 2023]</a
+          >
+        </div>
+        <input
+          type="number"
+          id="numEmails"
+          placeholder="Number of Emails"
+          value="8400"
+          required
+          min="0"
+        />
+      </div>
+      <br /><br />
+
+      <div class="tooltip">
+        <label for="sizeKB">KB:</label>
+        <div class="tooltip-text" id="tooltip-2">
+          Average size of an email: 75 KB.
+          <a
+            href="https://www.lifewire.com/what-is-the-average-size-of-an-email-message-1171208"
+            target="_blank"
+            >[Tschabitscher 2021]</a
+          >
+        </div>
+        <input
+          type="number"
+          id="sizeKB"
+          placeholder="Size in KB"
+          value="75"
+          required
+          min="0"
+        />
+      </div>
+
+      <div class="tooltip">
+        <label for="sizeMB">MB:</label>
+        <div class="tooltip-text" id="tooltip-3">
+          Average size of an email: 0.075 MB.
+          <a
+            href="https://www.lifewire.com/what-is-the-average-size-of-an-email-message-1171208"
+            target="_blank"
+            >[Tschabitscher 2021]</a
+          >
+        </div>
+
+        <input
+          type="number"
+          id="sizeMB"
+          placeholder="Size in MB"
+          value="0.075"
+          required
+          min="0"
+        />
+      </div>
+
+      <div class="tooltip">
+        <label for="sizeGB">GB:</label>
+        <div class="tooltip-text" id="tooltip-4">
+          Average size of an email: 0.000075 GB.
+          <a
+            href="https://www.lifewire.com/what-is-the-average-size-of-an-email-message-1171208"
+            target="_blank"
+            >[Tschabitscher 2021]</a
+          >
+        </div>
+
+        <input
+          type="number"
+          id="sizeGB"
+          placeholder="Size in GB"
+          value="0.000075"
+          required
+          min="0"
+        />
+      </div>
+
+      per Unit
+      <br /><br />
+      <div class="tooltip">
+        Carbon Intensity:
+        <div class="tooltip-text" id="tooltip-5">
+          Average grid factor gCO2e/kWh in Germany: 349g.
+          <a
+            href="https://www.statista.com/statistics/1290224/carbon-intensity-power-sector-germany/"
+            target="_blank"
+            >[Statista 2022]</a
+          >
+        </div>
+        <input
+          type="number"
+          id="gridFactor"
+          placeholder="Grid Factor"
+          value="349"
+          required
+          min="0"
+        />
+      </div>
+      <a href="https://www.ecotime.app" target="_blank">->your grid factor</a
+      ><br />
+      <div class="tooltip">
+        <div class="tooltip-text" id="tooltip-6">
+          Assuming 0.5 kWh per GB data transmission.
+          <a href="https://www.mdpi.com/2071-1050/10/7/2494" target="_blank"
+            >[Pihkola et al. 2018]</a
+          >
+        </div>
+        <p id="result">Total emissions: 0 kg CO2e</p>
+      </div>
+
+      <div class="tooltip">
+        <div class="tooltip-text" id="tooltip-9">
+          Multiplied Units with data volume per unit.
+        </div>
+
+        <p id="data-transmission" style="white-space: nowrap">
+          Data transmission: 0 GB
+        </p>
+      </div>
+
+      <div class="tooltip">
+        <div class="tooltip-text" id="tooltip-6">
+          Assuming 0.5 kWh per GB data transmission.
+          <a href="https://www.mdpi.com/2071-1050/10/7/2494" target="_blank"
+            >[Pihkola et al. 2018]</a
+          >
+        </div>
+
+        <p id="energy-consumption" style="white-space: nowrap">
+          Energy consumption: 0 kWh
+        </p>
+      </div>
+
+      <div class="tooltip">
+        <div class="tooltip-text" id="tooltip-7">
+          Assuming 25 kg CO2e absorption per tree per year.
+          <a
+            href="https://www.usda.gov/media/blog/2015/03/17/power-one-tree-very-air-we-breathe"
+            target="_blank"
+            >[U.S. Department of Agriculture 2015]</a
+          >
+        </div>
+        <p id="trees">Number of trees to offset in one year: 0</p>
+      </div>
+
+      <div class="tooltip">
+        <div class="tooltip-text" id="tooltip-8">
+          Assuming 89 Euro per tonne CO2e.
+          <a
+            href="https://ember-climate.org/data/data-tools/carbon-price-viewer/"
+            target="_blank"
+            >[Ember Climate 2023]</a
+          >
+        </div>
+        <p id="cost">Cost to offset with carbon certificates: 0 Euro</p>
+      </div>
+
+      <div class="tooltip">
+        <div class="tooltip-text" id="tooltip-9">
+          Assuming 809 Euro per tonne CO2e.
+          <a
+            href="https://www.umweltbundesamt.de/daten/umwelt-wirtschaft/gesellschaftliche-kosten-von-umweltbelastungen"
+            target="_blank"
+            >[German Federal Environmental Agency 2022]</a
+          >
+        </div>
+        <p id="damage">Welfare losses due to environmental damages: 0 Euro</p>
+      </div>
+      <div class="tooltip">
+        <div class="tooltip-text" id="tooltip-10">
+          There is no linear relationship between data transmission and power
+          consumption. Twice as much data does not necessarily mean twice as
+          much power consumption. The calculation is for estimation purposes
+          only.
+        </div>
+        <p id="disclaimer">Disclaimer</p>
+      </div>
+    </div>
+
+    <footer>
+      <div class="footer">
+        <p>
+          <a
+            href="https://github.com/yellelieder/datacarbon.info"
+            target="_blank"
+            rel="noopener nofollow"
+            >GitHub</a
+          >
+          |
+          <a
+            href="https://www.linkedin.com/in/lieder/"
+            target="_blank"
+            rel="noopener nofollow"
+            >LinkedIn</a
+          >
+          |
+          <a href="https://yel.li/legal" target="_blank" rel="noopener nofollow"
+            >Imprint</a
+          >
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
