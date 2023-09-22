@@ -19,7 +19,6 @@ Using DataCarbon.info is straightforward. There is no need for compilation or sc
 ## Built With
 
 - PWA template by Nicole Furlan. You can find the template [here](https://github.com/nikkifurls/simplepwa), and Nicole's GitHub profile [here](https://github.com/nikkifurls).
-- Data sourced from [Electricity Map](https://www.electricitymap.org/).
 
 ## License
 
