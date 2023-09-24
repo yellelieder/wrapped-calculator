@@ -2,6 +2,7 @@ let numEmails = document.getElementById("numEmails");
 let sizeKB = document.getElementById("sizeKB");
 let sizeMB = document.getElementById("sizeMB");
 let sizeGB = document.getElementById("sizeGB");
+let sizeTB = document.getElementById("sizeTB");
 let gridFactor = document.getElementById("gridFactor");
 let result = document.getElementById("result");
 let dataTransmission = document.getElementById("data-transmission");
@@ -45,9 +46,25 @@ function calculateResult() {
     (Math.ceil(costToOffset * 100) / 100).toFixed(2) +
     " Euro";
   damage.textContent =
-    "Welfare losses due to environmental damages: " +
+    "Welfare losses from environmental damage: " +
     costOfDamage.toFixed(2) +
     " Euro";
+}
+
+function convertToKB(value) {
+  return value;
+}
+
+function convertToMB(value) {
+  return value / 1024;
+}
+
+function convertToGB(value) {
+  return value / (1024 * 1024);
+}
+
+function convertToTB(value) {
+  return value / (1024 * 1024 * 1024);
 }
 
 function convertToKB(value) {
@@ -65,18 +82,28 @@ function convertToGB(value) {
 sizeKB.addEventListener("input", function () {
   sizeMB.value = convertToMB(Number(sizeKB.value));
   sizeGB.value = convertToGB(Number(sizeKB.value));
+  sizeTB.value = convertToTB(Number(sizeKB.value));
   calculateResult();
 });
 
 sizeMB.addEventListener("input", function () {
   sizeKB.value = convertToKB(Number(sizeMB.value * 1024));
   sizeGB.value = convertToGB(Number(sizeMB.value * 1024));
+  sizeTB.value = convertToTB(Number(sizeMB.value * 1024));
   calculateResult();
 });
 
 sizeGB.addEventListener("input", function () {
   sizeKB.value = convertToKB(Number(sizeGB.value * 1024 * 1024));
   sizeMB.value = convertToMB(Number(sizeGB.value * 1024 * 1024));
+  sizeTB.value = convertToTB(Number(sizeGB.value * 1024 * 1024));
+  calculateResult();
+});
+
+sizeTB.addEventListener("input", function () {
+  sizeKB.value = convertToKB(Number(sizeTB.value * 1024 * 1024 * 1024));
+  sizeMB.value = convertToMB(Number(sizeTB.value * 1024 * 1024 * 1024));
+  sizeGB.value = convertToGB(Number(sizeTB.value * 1024 * 1024 * 1024));
   calculateResult();
 });
 
@@ -84,3 +111,23 @@ numEmails.addEventListener("input", calculateResult);
 sizeKB.addEventListener("input", calculateResult);
 gridFactor.addEventListener("input", calculateResult);
 calculateResult();
+
+const tooltips = document.querySelectorAll(".tooltip");
+
+tooltips.forEach((tooltip) => {
+  const tooltipText = tooltip.querySelector(".tooltip-text");
+  const tooltipIcon = tooltip.querySelector(".tooltip-icon");
+
+  tooltipIcon.addEventListener("click", () => {
+    tooltip.classList.toggle("active");
+  });
+
+  tooltipText.addEventListener("click", () => {
+    tooltip.classList.toggle("active");
+  });
+});
+
+function toggleContent() {
+  var content = document.getElementById("disclaimerContent");
+  content.classList.toggle("show");
+}
