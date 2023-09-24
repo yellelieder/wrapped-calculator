@@ -9,9 +9,9 @@ body {
 }
 
 .container {
+  /* width: 90%; */
   margin: 0 auto;
 }
-
 .footer {
   text-align: center;
   margin: 0 auto;
@@ -126,8 +126,20 @@ input[type="number"] {
 #energy-consumption,
 #data-transmission,
 #damage,
-#disclaimer,
-#cost {
+#cost,
+#disclaimerTitle,
+#disclaimerContent,
+#toggleContent #cost {
   color: #bbb;
   margin-top: 1px;
+}
+
+.content {
+  display: none;
+  margin-top: 10px;
+}
+
+.content.show {
+  display: block;
+  text-align: right;
 }
