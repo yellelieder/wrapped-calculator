@@ -1,36 +1,83 @@
-# DataCarbon.info
+# 🎧 Wrapped CO2 Calculator
 
-DataCarbon.info is a frontend application designed to calculate CO2 emissions and associated environmental costs for data transmission. Unlike EcoTime, this application does not rely on geolocation. Instead, users input the data quantity and the number of units to be transmitted. They also have the option to specify their regional CO2 intensity.
+A playful year-end web app inspired by the popular music streaming recaps — but with a climate-conscious twist: calculate your estimated **CO₂ emissions** from music streaming.
 
-The app functions as a Progressive Web App (PWA), ensuring offline accessibility, and can be downloaded on both desktop and smartphone platforms.
+---
 
-## Demo
+## 🚀 Features
 
-You can access a live demo of the application at [datacarbon.info](http://datacarbon.info).
+- **Input your streaming minutes**  
+  Enter your total minutes listened (e.g., from your music streaming service) and get an environmental footprint estimate.
 
-## Usage
+- **Instant CO₂ Emissions Calculation**  
+  Based on real data for bandwidth, energy intensity, and carbon impact.
 
-Using DataCarbon.info is straightforward. There is no need for compilation or script execution. Simply open the `index.html` file in your web browser, whether locally or on a server.
+- **Visualize & Share**  
+  Share your results on social media or download them as an image to show your yearly streaming impact.
 
-## Authors
+- **Helpful Tooltips**  
+  Hover on metrics to see assumptions and data sources.
 
-- Yelle Lieder
+- **Progressive Web App (PWA)**  
+  Works offline and can be installed on your device.
 
-## Built With
+---
 
-- PWA template by Nicole Furlan. You can find the template [here](https://github.com/nikkifurls/simplepwa), and Nicole's GitHub profile [here](https://github.com/nikkifurls).
+## 🧠 Why?
 
-## License
+Every year we share how many minutes we streamed — but rarely ask what that means for the environment. This app isn’t about guilt — music is a beautiful thing. But maybe, just maybe, this year we can also take a moment to reflect on the hidden costs of digital consumption.
 
-This project is licensed under the [Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)](https://creativecommons.org/licenses/by-nc/4.0/). You are free to share and adapt the material under the following terms:
+---
 
-- **Attribution** — You must give appropriate credit, provide a link to the license, and indicate if changes were made. This should be done in a reasonable manner, avoiding any suggestion that the licensor endorses you or your use.
-- **NonCommercial** — The material may not be used for commercial purposes.
+## 📈 Default Assumptions
 
-For more detailed information, please refer to the [license](https://creativecommons.org/licenses/by-nc/4.0/).
+| Parameter | Assumption |
+|----------|--------|
+| Streaming Minutes | 3,695 minutes/year *(Dataconomy, 2023)* |
+| Data Usage | 2.4 MB/min *(Borgini, 2023)* |
+| CO₂ Intensity | 349 gCO₂e/kWh *(Statista, 2022, Germany)* |
+| Energy Use | 0.5 kWh/GB *(Pihkola et al., 2018)* |
+| Tree Offset | 25 kg CO₂e/year/tree *(USDA, 2015)* |
+| Carbon Certificate Price | €89/ton CO₂e *(Ember, 2023)* |
+| Environmental Damage Cost | €809/ton CO₂e *(UBA, 2022)* |
 
-## Acknowledgements
+---
 
-When using this project, kindly make reference to the original project.
+## 📦 Installation
 
-[![License: CC BY-NC 4.0](https://licensebuttons.net/l/by-nc/4.0/80x15.png)](https://creativecommons.org/licenses/by-nc/4.0/)
+This is a frontend-only web app. To run it locally:
+
+```bash
+git clone https://github.com/yellelieder/wrapped-calculator.git
+cd wrapped-calculator
+npm install
+npm run build
+```
+
+Then deploy using your preferred static host (e.g., Vercel).
+
+**Live:** 👉 [wrapped.yel.li](https://wrapped.yel.li)
+
+---
+
+## 🧩 Technology Stack
+
+- Built with **v0 by Vercel**
+- Tailwind CSS
+- React (via v0 component abstraction)
+- HTML2Canvas for image export
+- Web Share API & custom share links
+
+---
+
+## 🤝 Support
+
+Enjoying the project?  
+☕ [Buy me a coffee](https://buymeacoffee.com/yellelieder)
+
+---
+
+## 📄 License
+
+Licensed under the **GNU Affero General Public License v3.0 (AGPL-3.0)**.  
+See the full license for terms and conditions: [AGPL-3.0](https://www.gnu.org/licenses/agpl-3.0.html)
